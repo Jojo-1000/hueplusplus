@@ -106,6 +106,13 @@ if(NOT MbedTLS_FOUND)
 		add_library(MbedTLS::mbedcrypto ALIAS mbedcrypto)
 		add_library(MbedTLS::mbedx509 ALIAS mbedx509)
 	endif()
+	
+	# Mbedtls has warnings treated as errors, need to disable these warnings to not get build errors
+	if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+		target_compile_options(mbedtls PUBLIC -Wno-documentation)
+		target_compile_options(mbedcrypto PUBLIC -Wno-documentation)
+		target_compile_options(mbedx509 PUBLIC -Wno-documentation)
+	endif()
 endif()
 
 if(NOT nlohmann_json_FOUND)
