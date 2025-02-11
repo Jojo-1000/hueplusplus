@@ -1,6 +1,6 @@
 if(NOT hueplusplus_NO_EXTERNAL_LIBRARIES)
-    find_package(GTest)
-    find_package(GMock)
+    find_package(GTest QUIET)
+    find_package(GMock QUIET)
 endif()
 
 if(NOT GTest_FOUND OR NOT GMock_FOUND)
@@ -98,7 +98,7 @@ if(LCOV_PATH AND GCOV_PATH)
     # GCov
     include(CodeCoverage.cmake)
     add_executable(testcov_HuePlusPlus ${TEST_SOURCES} ${hueplusplus_SOURCES})
-    target_include_directories(testcov_HuePlusPlus PUBLIC "${PROJECT_SOURCE_DIR}/include")
+    target_link_libraries(testcov_HuePlusPlus PUBLIC hueplusplusstatic)
     target_compile_features(testcov_HuePlusPlus PUBLIC cxx_std_14)
     set_property(TARGET testcov_HuePlusPlus PROPERTY CXX_EXTENSIONS OFF)
 
